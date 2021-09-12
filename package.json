@@ -1,0 +1,55 @@
+{
+  "name": "dwp-test-tech-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --exit \"test/**/*.spec.js\"",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "coverage": "nyc --reporter=lcov --repoter=text-lcov npm test",
+    "compliance": "npm run compliance:code && npm run compliance:commit",
+    "compliance:code": "standard",
+    "compliance:commit": "commitlint --from develop --to HEAD",
+    "compliance:markdown": "markdownlint **/*.md --ignore '**/node_modules/**'",
+    "security": "npm run security:audit && npm run security:outdated",
+    "security:audit": "npm audit || true",
+    "security:outdated": "npm outdated || true",
+    "standard:fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/javed-a-iqbal/dwp-test-tech-api"
+  },
+  "author": "Nathan Maybrey",
+  "license": "ISC",
+  "bugs": {
+    "url": "git+https://github.com/javed-a-iqbal/dwp-test-tech-api"
+  },
+  "homepage": "https://github.com/javed-a-iqbal/dwp-test-tech-api",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "cors": "^2.8.5",
+    "dateformat": "^4.5.1",
+    "dotenv": "^10.0.0",
+    "enum": "^3.0.4",
+    "express": "^4.17.1",
+    "geolib": "^3.3.1",
+    "helmet": "^4.6.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "markdownlint-cli": "^0.28.1",
+    "mocha": "^9.1.1",
+    "nock": "^13.1.3",
+    "nodemon": "^2.0.12",
+    "nyc": "^15.1.0"
+  }
+}
