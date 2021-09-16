@@ -10,5 +10,12 @@ describe("Utils.getDistance", () => {
         const result = utils.getDistance(p1, p2);
         return expect(result).to.equal(51.716102958721066);
     })
+
+    it("return NaN if invalid co-ordinate value used", async () => {
+        const p1 = { latitude: 'x', longitude: -0.118092 };
+        const p2 = { latitude: 51.752022, longitude:'kkk'};
+        const result = utils.getDistance(p1, p2);
+        return expect(result).to.be.NaN;
+    })
 });
 
