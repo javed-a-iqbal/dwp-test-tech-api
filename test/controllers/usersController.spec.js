@@ -22,17 +22,18 @@ describe('DWP-TEST-TECH-API usersController', () => {
         });
     })
 
+    it('Should respond with page not found if wrong route is used', (done) => {
+     chai.request(app)
+     .get('/users/people-livings')
+     .end((err, res) => {
+       // Assertion
+       chai.expect(res).to.have.status(404);
+       done()
+     });
+    })
+
 
   });
 
 })
 
-
-
-
-// chai.use(chaiHttp);
-// describe('Index', () => {
-//   describe('GET users/london', () => {
-//    ;
-//   });
-// });
