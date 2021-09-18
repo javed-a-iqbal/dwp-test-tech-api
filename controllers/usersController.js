@@ -24,8 +24,21 @@ const getUsers = async (req, res) => {
   }
 }
 
+const getUserById = async (req, res) => {
+  try {
+    await utils.userById(req.params.id).then((data)=>{
+    auditLog.info("Get user by Id", { type: 'audit', archetype: 'CN01', product: productMessages.productName.value, emailId: process.env.EMAIL_ADDRESS, productType: 'api data', tags: 'analytics' })
+         res.status(200).json(data.data)
+    })
+} catch (errors) {
+  errorLog.error("Error during exeution " + errors)
+  res.send(errors)
+}
+}
+
 
 
 module.exports = {
-  getUsers
+  getUsers,
+  getUserById
 }

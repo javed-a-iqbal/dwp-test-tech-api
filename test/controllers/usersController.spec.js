@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 
 describe('DWP-TEST-TECH-API usersController', () => {
   describe("usersController.getUsers", () => {
-    it('Should respond with list of users with in 50 miles of london or in london', () => {
+    it('Should respond with list of users with in 50 miles of london or in london', (done) => {
      
       const expected = JSON.parse(fs.readFileSync(`${__dirname}/../stubs/listUsers.json`));
          chai.request(app)
@@ -17,7 +17,7 @@ describe('DWP-TEST-TECH-API usersController', () => {
         .end((err, res) => {
           // Assertion
           chai.expect(res).to.have.status(200);
-          chai.expect(res).to.eql(expected);
+          chai.expect(res.body).to.eql(expected);
           done();
         });
     })
@@ -33,6 +33,34 @@ describe('DWP-TEST-TECH-API usersController', () => {
     })
 
 
+  });
+
+  describe("usersController.getUserById", () => {
+    it('Should respond with one users if correct id is used', (done) => {
+       const expected = JSON.parse(fs.readFileSync(`${__dirname}/../stubs/userById.json`));
+         chai.request(app)
+        .get('/users/user-by-id/1')
+        .end((err, res) => {
+          // Assertion
+          chai.expect(res).to.have.status(200);
+          chai.expect(res.body).to.eql(expected);
+          chai.expect(res.body.first_name).to.to.eql("Maurise");
+          done();
+        });
+    })
+
+    it('Should respond with error if invalid user id is used', (done) => {
+       chai.request(app)
+       .get('/users/user-by-id/11111')
+       .end((err, res) => {
+         // Assertion
+       // console.log("body..."+res.body.message)
+        //  chai.expect(res).to.have.status(200);
+          chai.expect(res.body.message).to.to.eql("Request failed with status code 404");
+         done();
+       });
+   })
+ 
   });
 
 })

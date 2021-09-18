@@ -20,8 +20,11 @@ const getUsersInGivenDistance = async (GeoCoordinates, distance) => {
   })
 }
 
+const userById = (id) => axios.get(`${process.env.API_URL}/user/${id}`)
+
 module.exports = {
   getUsersOfCity,
   getUsersInGivenDistance,
-  getDistance
+  getDistance,
+  userById
 }
