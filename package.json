@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit \"test/**/*.spec.js\"",
+    "test": "mocha --exit \"test/**/*.spec.js\" --timeout 10000",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "coverage": "nyc --reporter=lcov --repoter=text-lcov npm test",

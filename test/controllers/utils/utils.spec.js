@@ -1,7 +1,11 @@
 const chai = require("chai");
-const chaiHttp = require("chai-http");
+const fs = require('fs');
 const expect = chai.expect;
-const utils = require('../../../controllers/utils/utils')
+const utils = require('../../../controllers/utils/utils');
+
+
+//const mockedUsers = JSON.parse(fs.readFileSync(`${__dirname}/userById.json`));
+//const mock = new MockAdapter(axios);
 
 describe("Utils.getDistance", () => {
     it("calculate distance between two  valid co-ordinate sets", async () => {
@@ -17,5 +21,26 @@ describe("Utils.getDistance", () => {
         const result = utils.getDistance(p1, p2);
         return expect(result).to.be.NaN;
     })
+});
+
+describe('utils.userById', () => {
+     it('Should return one user related data',  function(done) {
+        utils.userById(2).then((response)=>{
+        expect(response.data).to.have.a.property('id');
+        expect(response.data.id).to.equal(2);  
+    }).then(done, done); //to chain a then(done, done) which handles both resolve and reject of the promise.
+  });
+
+  it('Should display error message when invalid id used',  function(done) {
+    const userId=34232;
+    utils.userById(userId).then((response)=>{
+   
+}).catch(resp => {
+    let data = resp.response.data;
+    expect(resp.response.status).to.equal(404); 
+    expect(data.message).to.eql(`Id ${userId} doesn't exist. You have requested this URI [/user/${userId}] but did you mean /user/<string:id> ?`)
+      }).then(done, done) 
+});
+   
 });
 
